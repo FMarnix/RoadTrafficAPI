@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgis/postgis:12-3.1
+    environment:
+      - POSTGRES_DB=trafego_rodoviario
+      - POSTGRES_USER=trafego_rodoviario
+      - POSTGRES_PASSWORD=trafego_rodoviario
+    volumes:
+      # - ./data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    command: python manage.py runserver_plus 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
