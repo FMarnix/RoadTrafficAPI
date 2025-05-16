@@ -7,34 +7,71 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0003_alter_roadsegment_id'),
+        ("api", "0003_alter_roadsegment_id"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Car',
+            name="Car",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('license_plate', models.CharField(max_length=10, unique=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("license_plate", models.CharField(max_length=10, unique=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Sensor',
+            name="Sensor",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=255)),
-                ('uuid', models.UUIDField(unique=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=255)),
+                ("uuid", models.UUIDField(unique=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Observation',
+            name="Observation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('timestamp', models.DateTimeField()),
-                ('car', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='observations', to='api.car')),
-                ('road_segment', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='observations', to='api.roadsegment')),
-                ('sensor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='observations', to='api.sensor')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("timestamp", models.DateTimeField()),
+                (
+                    "car",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="observations",
+                        to="api.car",
+                    ),
+                ),
+                (
+                    "road_segment",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="observations",
+                        to="api.roadsegment",
+                    ),
+                ),
+                (
+                    "sensor",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="observations",
+                        to="api.sensor",
+                    ),
+                ),
             ],
         ),
     ]

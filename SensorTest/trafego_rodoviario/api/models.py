@@ -14,12 +14,14 @@ class RoadSegment(models.Model):
         return self.traffic_speeds.count()
 
     class Meta:
-        ordering = ['-created_at']  # Keep ordering if 'created_at' exists
+        ordering = ["-created_at"]  # Keep ordering if 'created_at' exists
 
 
 class TrafficSpeed(models.Model):
     id = models.AutoField(primary_key=True)
-    road_segment = models.ForeignKey(RoadSegment, related_name='traffic_speeds', on_delete=models.CASCADE)
+    road_segment = models.ForeignKey(
+        RoadSegment, related_name="traffic_speeds", on_delete=models.CASCADE
+    )
     start_longitude = models.DecimalField(max_digits=9, decimal_places=6)
     start_latitude = models.DecimalField(max_digits=9, decimal_places=6)
     end_longitude = models.DecimalField(max_digits=9, decimal_places=6)
@@ -44,7 +46,8 @@ class TrafficSpeed(models.Model):
         return f"{self.road_segment.name} - {self.speed} km/h"
 
     class Meta:
-        ordering = ['-timestamp']  # Default ordering by timestamp (newest first)
+        ordering = ["-timestamp"]  # Default ordering by timestamp (newest first)
+
 
 class Sensor(models.Model):
     id = models.AutoField(primary_key=True)
@@ -54,6 +57,7 @@ class Sensor(models.Model):
     def __str__(self):
         return self.name
 
+
 class Car(models.Model):
     license_plate = models.CharField(max_length=10, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -61,10 +65,15 @@ class Car(models.Model):
     def __str__(self):
         return self.license_plate
 
+
 class Observation(models.Model):
-    road_segment = models.ForeignKey(RoadSegment, related_name='observations', on_delete=models.CASCADE)
-    sensor = models.ForeignKey(Sensor, related_name='observations', on_delete=models.CASCADE)
-    car = models.ForeignKey(Car, related_name='observations', on_delete=models.CASCADE)
+    road_segment = models.ForeignKey(
+        RoadSegment, related_name="observations", on_delete=models.CASCADE
+    )
+    sensor = models.ForeignKey(
+        Sensor, related_name="observations", on_delete=models.CASCADE
+    )
+    car = models.ForeignKey(Car, related_name="observations", on_delete=models.CASCADE)
     timestamp = models.DateTimeField()
 
     def __str__(self):

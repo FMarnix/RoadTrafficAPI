@@ -29,9 +29,6 @@ populate:
 test:
 	@docker-compose exec web python manage.py test
 
-black:
-	@docker-compose exec web black .
-
 createsuperuser:
 	@docker-compose exec web python manage.py createsuperuser
 

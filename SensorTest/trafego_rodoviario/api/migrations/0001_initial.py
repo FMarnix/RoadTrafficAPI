@@ -7,22 +7,24 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='RoadSegmentTraffic',
+            name="RoadSegmentTraffic",
             fields=[
-                ('id', models.IntegerField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=255)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('start_longitude', models.DecimalField(decimal_places=6, max_digits=9)),
-                ('start_latitude', models.DecimalField(decimal_places=6, max_digits=9)),
-                ('end_longitude', models.DecimalField(decimal_places=6, max_digits=9)),
-                ('end_latitude', models.DecimalField(decimal_places=6, max_digits=9)),
-                ('length', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('speed', models.DecimalField(decimal_places=2, max_digits=5)),
+                ("id", models.IntegerField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=255)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "start_longitude",
+                    models.DecimalField(decimal_places=6, max_digits=9),
+                ),
+                ("start_latitude", models.DecimalField(decimal_places=6, max_digits=9)),
+                ("end_longitude", models.DecimalField(decimal_places=6, max_digits=9)),
+                ("end_latitude", models.DecimalField(decimal_places=6, max_digits=9)),
+                ("length", models.DecimalField(decimal_places=2, max_digits=10)),
+                ("speed", models.DecimalField(decimal_places=2, max_digits=5)),
             ],
         ),
     ]

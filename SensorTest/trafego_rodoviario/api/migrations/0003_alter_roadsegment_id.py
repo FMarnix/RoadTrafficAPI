@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0002_roadsegment_trafficspeed_delete_roadsegmenttraffic'),
+        ("api", "0002_roadsegment_trafficspeed_delete_roadsegmenttraffic"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='roadsegment',
-            name='id',
+            model_name="roadsegment",
+            name="id",
             field=models.AutoField(primary_key=True, serialize=False),
         ),
     ]
