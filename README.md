@@ -30,6 +30,10 @@ To run the API, follow these steps:
 4. Migrate the database: `make migrate`
 5. Populate the database: `make populate`
 
+## Code Formatting
+
+You can run the command 'python3 -m black .' to format the code in the app.
+
 ## Populating the Database
 
 The `populate` command will use a function to populate the database with data from two files in the `data` directory. This will ensure that the database is populated with the necessary data.

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 import csv
-from api.models import RoadSegment, TrafficSpeed
+from api.models import RoadSegment, TrafficSpeed, Sensor
 
 
 class Command(BaseCommand):
@@ -25,11 +25,13 @@ class Command(BaseCommand):
                     length=row["Length"],
                     speed=row["Speed"],
                 )
-        self.stdout.write(self.style.SUCCESS("Database populated successfully!"))
+
+        self.handle_sensors(*args, **kwargs)
 
     def handle_sensors(self, *args, **kwargs):
         with open("data/sensors.csv", "r") as file:
             reader = csv.DictReader(file)
             for row in reader:
                 Sensor.objects.create(id=row["id"], name=row["name"], uuid=row["uuid"])
-        self.stdout.write(self.style.SUCCESS("Sensors populated successfully!"))
+
+        self.stdout.write(self.style.SUCCESS("Database populated successfully!"))

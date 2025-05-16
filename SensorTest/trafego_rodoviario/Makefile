@@ -44,7 +44,6 @@ help:
 	@echo "  migrate  : Aplica as migrações do banco de dados"
 	@echo "  test     : Executa os testes do projeto"
 	@echo "  shell    : Abre o shell do Django"
-	@echo "  black    : Formata o código com Black"
 	@echo "  logs     : Exibe os logs dos containers"
 	@echo "  populate : Popula o banco de dados com dados iniciais"
 	@echo "  createsuperuser: Cria um superusuário"

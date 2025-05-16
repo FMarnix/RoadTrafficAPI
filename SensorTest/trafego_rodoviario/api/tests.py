@@ -203,9 +203,6 @@ class ObservationTests(APITestCase):
         response = self.client.post(
             "/api/observations/bulk/", data, format="json", HTTP_AUTHORIZATION=api_key
         )
-        print("Requesr Headers:", self.client._credentials)
-        print("Response Status Code:", response.status_code)
-        print("Response Content:", response.content)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Observation.objects.count(), 1)
 

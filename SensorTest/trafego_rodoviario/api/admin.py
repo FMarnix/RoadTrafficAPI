@@ -1,7 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group, Permission
 from django.db.utils import OperationalError
-from .models import RoadSegment, TrafficSpeed
+from .models import (
+    RoadSegment,
+    TrafficSpeed,
+    Car,
+    Observation,
+    Sensor,
+)
 from django.apps import AppConfig
 
 
@@ -18,6 +24,11 @@ class TrafficSpeedAdmin(admin.ModelAdmin):
     list_display = ["id", "road_segment", "speed", "timestamp", "intensity"]
     search_fields = ["road_segment__name"]
     ordering = ["-timestamp"]
+
+
+admin.site.register(Sensor)
+admin.site.register(Car)
+admin.site.register(Observation)
 
 
 # Create groups and assign permissions
