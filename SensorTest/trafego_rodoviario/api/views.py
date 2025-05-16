@@ -1,10 +1,9 @@
+import os
 from rest_framework import viewsets, filters, status
 from rest_framework.response import Response
 from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
-from rest_framework.authentication import BaseAuthentication
-from rest_framework.exceptions import AuthenticationFailed
 from .models import RoadSegment, TrafficSpeed, Car, Sensor, Observation
 from .serializers import (
     RoadSegmentSerializer, 
@@ -13,14 +12,6 @@ from .serializers import (
 )
 from datetime import timedelta
 from django.utils.timezone import now
-
-
-class APIKeyAuthentication(BaseAuthentication):
-    def authenticate(self, request):
-        api_key = request.headers.get('X-API-KEY') or request.GET.get('api_key')
-        if api_key == "23231c7a-80a7-4810-93b3-98a18ecfbc42":
-            return (None, None)
-        raise AuthenticationFailed('Invalid API key')
 
 
 class RoadSegmentViewSet(viewsets.ModelViewSet):
@@ -96,9 +87,12 @@ class TrafficSpeedViewSet(viewsets.ModelViewSet):
 
 
 class BulkObservationView(APIView):
-    authentication_classes = [APIKeyAuthentication]
 
     def post(self, request):
+        api_key = request.META.get('HTTP_AUTHORIZATION')
+        expected_api_key = os.environ.get('API_KEY')
+        if api_key != expected_api_key:
+            return Response({"error": "Invalid API Key"}, status=status.HTTP_401_UNAUTHORIZED)
         data = request.data
         for record in data:
             car, _ = Car.objects.get_or_create(license_plate=record['car__license_plate'])

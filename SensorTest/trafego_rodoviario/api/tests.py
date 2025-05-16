@@ -1,3 +1,4 @@
+import os
 from rest_framework import status
 from rest_framework.test import APITestCase
 from django.urls import reverse
@@ -169,7 +170,6 @@ class ObservationTests(APITestCase):
         self.client.force_authenticate(user=self.user)
         self.sensor = Sensor.objects.create(name="Test Sensor", uuid="270e4cc0-d454-4b42-8682-80e87c3d163c")
         self.road_segment = RoadSegment.objects.create(name="Test Road Segment")
-        self.api_key = "23231c7a-80a7-4810-93b3-98a18ecfbc42"
 
     def test_bulk_observation_creation(self):
         data = [
@@ -180,11 +180,12 @@ class ObservationTests(APITestCase):
                 "sensor__uuid": str(self.sensor.uuid)
             }
         ]
+        api_key = os.environ.get('API_KEY')
         response = self.client.post(
             "/api/observations/bulk/",
             data,
             format="json",
-            headers={'HTTP_X_API_KEY': self.api_key}
+            HTTP_AUTHORIZATION=api_key
         )
         print("Requesr Headers:", self.client._credentials)
         print("Response Status Code:", response.status_code)
